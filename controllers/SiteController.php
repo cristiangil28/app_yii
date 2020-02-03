@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\ValidarFormulario;
+use app\models\ValidarFormularioAjax;
+use yii\widgets\ActiveForm;
 
 class SiteController extends Controller
 {
@@ -38,6 +40,25 @@ class SiteController extends Controller
         }
 
         $this->redirect(['site/formulario',"mensaje"=>$mensaje]);
+    }
+
+    public function actionValidarformularioajax(){
+        $model = new ValidarFormularioAjax;
+        $msg = null;
+
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->request->isAjax) {
+            Yii::$app->response->format= Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            $msg ="formulario enviado correctamente";
+            $model->nombre=null;
+            $model->email=null;
+        }else{
+            $model->getErrors();
+        }
+        return $this->render("validarformularioajax",['model'=>$model,"msg"=>$msg]);
     }
     /**
      * {@inheritdoc}
