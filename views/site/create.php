@@ -3,8 +3,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 ?>
-
+<a href="<?= Url::toRoute("site/view") ?>">Ir a la lista Usuarios</a>
 <h1>Crear Usuario</h1>
 <h3><?php echo $msg; ?></h3>
 <?php 

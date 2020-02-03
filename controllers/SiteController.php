@@ -19,6 +19,11 @@ use app\models\Users;
 class SiteController extends Controller
 {
 
+    public function actionView(){
+        $table = new Users;
+        $model = $table->find()->all();
+        return $this->render("view",["model"=>$model]);
+    }
     public function actionCreate(){
         $model = new FormUsers;
         $msg = null;
