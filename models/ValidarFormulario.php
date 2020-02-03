@@ -1,12 +1,12 @@
 <?php 
 
-namespace app\model;
+namespace app\models;
 
 use yii;
 
-use yii\base\models;
+use yii\base\model;
 
-class ValidarFormulario extends models{
+class ValidarFormulario extends model{
     public $nombre;
     public $email;
 
@@ -14,9 +14,8 @@ class ValidarFormulario extends models{
         return [
             ["nombre","required","message"=>"campo requerido"],
             ["nombre","match",'pattern'=>"/^.{3,50}$/","message"=>"minimo 3 maximo 50 caracteres"],
-            ["nombre","match",'pattern'=>"/^[0-9a-z]$/i","message"=>"solo se aceptan letras y números"],
             ["email","required","message"=>"campo requerido"],
-            ["email","match",'pattern'=>"/^.{5,80}$/","message"=>"solo se aceptan letras y números"],
+            ["email","match",'pattern'=>"/^.{5,80}$/","message"=>"minimo 3 maximo 80 caracteres"],
             ["email","email","message"=>"formato no valido"]
 
         ];

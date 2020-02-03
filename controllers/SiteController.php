@@ -14,17 +14,8 @@ use app\models\ValidarFormulario;
 class SiteController extends Controller
 {
 
-    public function actionSaluda(){
-        $nombre = 'cristian';
-        return $this->render('saluda',array('nombre'=>$nombre));
-    }
-
-    public function actionFormulario($mensaje = null){
-        return $this->render('formulario',array('mensaje'=>$mensaje));
-    }
-
-    public function actionValidarFormulario(){
-        $model = new ValidarFormulario;
+    public function actionValidateform(){
+        $model = new ValidarFormulario();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 # code...
@@ -32,8 +23,13 @@ class SiteController extends Controller
                 $model->getErrors();
             }
         }
-        return   $this->render('validar',["model"=>$model]);
+        return $this->render('validateForm',["model"=>$model]);
     }
+
+    public function actionFormulario($mensaje = null){
+        return $this->render('formulario',array('mensaje'=>$mensaje));
+    }
+
     public function actionRequest(){
 
         $mensaje='';
