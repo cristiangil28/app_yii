@@ -12,9 +12,38 @@ use app\models\ContactForm;
 use app\models\ValidarFormulario;
 use app\models\ValidarFormularioAjax;
 use yii\widgets\ActiveForm;
+use app\models\FormUsers;
+use app\models\Users;
+
 
 class SiteController extends Controller
 {
+
+    public function actionCreate(){
+        $model = new FormUsers;
+        $msg = null;
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $table = new Users();
+                $table->nombre = $model->nombre;
+                $table->apellidos = $model->apellidos;
+                $table->cedula = $model->cedula;
+                if ($table->insert()) {
+                    $msg = "se ha creado el usaurio";
+                    $model->nombre = null;
+                    $model->apellidos = null;
+                    $model->cedula = null;
+                }else{
+                    $msg ="ha ocurrido un error al guardar el registro";
+                   
+                }
+            }else{
+                $model->getErrors();
+            }
+        }
+        return $this->render("create",["model"=>$model,"msg"=>$msg]);
+    }
 
     public function actionValidateform(){
         $model = new ValidarFormulario();
