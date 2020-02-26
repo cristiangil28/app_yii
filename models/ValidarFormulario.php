@@ -12,15 +12,20 @@ class ValidarFormulario extends model{
 
     public function rules(){
         return [
-            ["nombre","required","message"=>"campo requerido"],
-            ["nombre","match",'pattern'=>"/^.{3,50}$/","message"=>"minimo 3 maximo 50 caracteres"],
+            ["email","validarNombre"],
+          
             ["email","required","message"=>"campo requerido"],
             ["email","match",'pattern'=>"/^.{5,80}$/","message"=>"minimo 3 maximo 80 caracteres"],
-            ["email","email","message"=>"formato no valido"]
-
+            ["email","email","message"=>"formato no valido"],
+            
         ];
     }
-
+    public function validarNombre($attribute,$params){
+        if (empty($this->attributes['nombre'])) {
+            $this->addError($attribute,'el nombre es muy corto');
+        }
+        $this->attributes['nombre'];
+    }
     public function attributeLabels(){
         return [
             "nombre"=>"Nombre: ",

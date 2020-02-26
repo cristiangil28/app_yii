@@ -15,7 +15,7 @@ use yii\helpers\Url;
         <th colspan="2">Acciones </th>
     </tr>
     <?php foreach($model as $row): ?>
-        <tr>
+        <tr>    
             <td><?= $row->id?></td>
             <td><?= $row->nombre?></td>
             <td><?= $row->apellidos?></td>
